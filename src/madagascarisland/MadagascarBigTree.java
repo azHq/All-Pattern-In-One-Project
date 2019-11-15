@@ -15,7 +15,7 @@ import javafx.scene.paint.Color;
 
 public class MadagascarBigTree extends CompositeShape{
 	
-	ArrayList<IShape> shapes=new ArrayList<>();
+	
 	double treeX,treeY,treeHeight;
 	Color color;
 	public MadagascarBigTree(Color color,double treeX,double treeY,double treeHeight) {		
@@ -30,20 +30,12 @@ public class MadagascarBigTree extends CompositeShape{
 	public void buildShape() {
 		
 		shapes.add(new MadagascarShoot(color,treeX,treeY,treeHeight));
-		shapes.add(new MadagascarLeaf(Color.GREEN,treeX-(treeHeight*.25),treeY-(treeHeight*1.8),treeHeight*.9,treeHeight*.8));
-		shapes.add(new MadagascarLeaf(Color.GREEN,treeX+(treeHeight*.55),treeY-treeHeight*1.2,treeHeight*.55,treeHeight*.5));
+		shapes.add(new MadagascarLeaf(color,treeX-(treeHeight*.20),treeY-(treeHeight*1.7),treeHeight*.94,treeHeight*.9));
+		shapes.add(new MadagascarLeaf(color,treeX+(treeHeight*.55),treeY-treeHeight*1.2,treeHeight*.55,treeHeight*.5));
 		
 	}
 	
-	@Override
-	public void draw(GraphicsContext  gc) {
-		
-		buildShape();
-		for(IShape shape:shapes) {
-			
-			shape.draw(gc);
-		}
-	}
+	
 	
 
 }

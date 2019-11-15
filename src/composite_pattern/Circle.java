@@ -23,7 +23,7 @@ public class Circle extends BasicShape{
 	@Override
 	public void draw(GraphicsContext  gc) {
 			
-		gc.setFill(Color.GRAY);
+		gc.setFill(color);
 		gc.fillOval(centerX,centerY,radiusX,radiusY);
 	}
 	

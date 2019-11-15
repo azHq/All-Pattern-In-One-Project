@@ -1,11 +1,14 @@
 package abstractfactory;
 
 
+import builder.GreenLandHutBuilder;
+import builder.HutBuilder;
 import generalclasses.Fauna;
 import generalclasses.Flora;
-import generalclasses.Huts;
+import generalclasses.Hut;
 import greenlandisland.GreenlandFauna;
 import greenlandisland.GreenlandFlora;
+import greenlandisland.GreenlandHut;
 import javafx.scene.canvas.GraphicsContext;
 
 public class GreenLandFactory extends AbstractFactory {
@@ -18,7 +21,7 @@ public class GreenLandFactory extends AbstractFactory {
 	
 
 	@Override
-	public Flora getFlora(String type) {
+	public Flora getFlora() {
 		
 		
 		return new GreenlandFlora(gc);
@@ -31,9 +34,9 @@ public class GreenLandFactory extends AbstractFactory {
 	}
 
 	@Override
-	public Huts getHuts(String type) {
+	public Hut getHuts() {
 		
-		return null;
+		return new GreenlandHut(gc);
 	}
 
 }

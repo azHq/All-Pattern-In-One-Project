@@ -1,5 +1,9 @@
 package Adapter;
 
-public class HutAdapter {
+public interface HutAdapter {
+	
+	void triangleRoof();
+	void increaseLevel();
+	
 
 }

@@ -27,6 +27,7 @@ public class Rectangle extends BasicShape{
 	@Override
 	public void draw(GraphicsContext  gc) {
 		
+		gc.setFill(color);
 		gc.fillRoundRect(X1, Y1,width, height, radius, radius);
 		 
 	}

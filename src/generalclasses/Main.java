@@ -2,20 +2,32 @@ package generalclasses;
 	
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.util.Optional;
 
+import CommandPatter.Redo;
+import CommandPatter.Start;
+import CommandPatter.Stop;
+import CommandPatter.Undo;
+import CommandPatter.FactoryClass;
+import CommandPatter.Marriage;
+import Facade.Facade;
 import abstractfactory.GreenLandFactory;
 import abstractfactory.MadagascarFactory;
+import flyweight.FlyWeightFactory;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
+import madagascarisland.MadagascarHut;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -33,6 +45,9 @@ public class Main extends Application {
 	Canvas canvas;
 	int width;
 	int height;
+	Pane mainPane;
+	boolean startMarriage=false;
+	FactoryClass factoryClass=new FactoryClass();
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -55,14 +70,15 @@ public class Main extends Application {
 	
 	private void initLayout() {
 		
-		Pane mainPane=new Pane();
-		mainPane.setStyle("-fx-background-color:black;");
-		mainPane.setMinSize(600, 700);
-		canvas=new Canvas(1200,1000);
-		
-		gc = canvas.getGraphicsContext2D();
-		mainPane.getChildren().add(canvas);
-		
+	   
+		mainPane=new Pane();
+ 		mainPane.setStyle("-fx-background-color:black;");
+ 		mainPane.setMinSize(600, 700);
+ 		canvas=new Canvas(2000,1000);
+ 		gc = canvas.getGraphicsContext2D();
+ 		mainPane.getChildren().add(canvas);
+ 		
+ 		
 
 		Pane right = new Pane();
 		right.setMaxSize(200,500);
@@ -80,12 +96,9 @@ public class Main extends Application {
 		 greenLand.setOnAction(new EventHandler<ActionEvent>() {
 			    @Override 
 			    public void handle(ActionEvent e) {
-		
 			    	
-			    	/*Flora flora=new GreenLandFactory(gc).getFlora("bigtree");
-			    	flora.createFlora();*/
-			    	Fauna fauna=new GreenLandFactory(gc).getFauna();
-			    	fauna.createFauna();
+			    	Facade facade=new Facade(gc,canvas);
+			    	facade.createIslandEnvironment(new GreenLandFactory(gc));
 			    }
 		});
 		 Button madagascar = new Button("Madagascar"); 
@@ -95,12 +108,9 @@ public class Main extends Application {
 		 madagascar.setOnAction(new EventHandler<ActionEvent>() {
 			    @Override 
 			    public void handle(ActionEvent e) {
-		
 			    	
-			    	Flora flora=new MadagascarFactory(gc).getFlora("bigtree");
-			    	flora.createFlora();
-			    	flora=new MadagascarFactory(gc).getFlora("grass");
-			    	flora.createFlora();
+			    	Facade facade=new Facade(gc,canvas);
+			    	facade.createIslandEnvironment(new MadagascarFactory(gc));
 			    	
 			    }
 		});
@@ -129,14 +139,109 @@ public class Main extends Application {
 		root.setCenter(mainPane);
 		root.setBottom(bottom);
 		
+		
+		Button command1 = new Button("Redo");
+		command1.setFont(Font.font ("serif", 16));
+		command1.setMinSize(90,50);
+		vbox2.setMinSize(300,400);
+		Button command2 = new Button("Undo");
+		command2.setFont(Font.font ("serif", 16));
+		command2.setMinSize(90,50);
+		
+		Button write = new Button("Write Principle..");
+		write.setFont(Font.font ("serif", 16));
+		write.setMinSize(120,50);
+		anchorpane.setStyle("-fx-background-color: #A9A9A9;");
+		HBox hb2 = new HBox();
+		hb2.setAlignment(Pos.CENTER);
+		
+		
+		Button start= new Button("Start Marriage");
+		start.setFont(Font.font ("serif", 16));
+		start.setMinSize(90,50);
+		
+		Button stop= new Button("Stop Marriage");
+		stop.setFont(Font.font ("serif", 16));
+		stop.setMinSize(90,50);
+		
+		
+		hb2.getChildren().addAll(command1, command2,write,start,stop);
+		bottom.getChildren().add(hb2);
+		write.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override 
+		    public void handle(ActionEvent e) {
+		    	
+		    	TextInputDialog dialog = new TextInputDialog("");
+				dialog.setHeaderText("Marriage");
+				dialog.setContentText("Please Write Your Principle..");
+
+				Optional<String> result = dialog.showAndWait();
+				
+				
+				
+				if (result.isPresent()){
+					
+					double quantity = 0;
+					if(result.get().length()>0&&startMarriage) {
+						
+						factoryClass.addCommand(new Redo(result.get(),930,570+(factoryClass.command.size()*18),gc,new Marriage(gc)));
+					}
+				
+				}
+		    	
+		    	
+		    }
+		});
+		command2.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override 
+		    public void handle(ActionEvent e) {
+		    	
+		    	factoryClass.undo();
+		    	
+		    }
+		});
+		command1.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override 
+		    public void handle(ActionEvent e) {
+		    	
+		    	factoryClass.redo();
+		    	
+		    }
+		});
+		
+		start.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override 
+		    public void handle(ActionEvent e) {
+		    	
+		    	startMarriage=true;
+		    	factoryClass.addCommand(new Start(new Marriage(gc)));
+		    	
+		    }
+		});
+		stop.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override 
+		    public void handle(ActionEvent e) {
+		    	
+		    	startMarriage=false;
+		    	factoryClass.addCommand(new Stop(new Marriage(gc)));
+		    	
+		    }
+		});
+		
 		root.setLeft(left);
 		root.setRight(right);
+		
+		Facade facade=new Facade(gc,canvas);
+    	facade.createIslandEnvironment(new MadagascarFactory(gc));
+		
 		
 	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+	
 }
 
 

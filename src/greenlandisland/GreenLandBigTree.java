@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 
 public class GreenLandBigTree extends CompositeShape {
 
-	ArrayList<IShape> shapes=new ArrayList<>();
+	
 	Color color;
 	double treeHeight=100;
 	double treeWidthTop=10;
@@ -31,18 +31,18 @@ public class GreenLandBigTree extends CompositeShape {
 		this.color=treebulider.color;
 		this.treeX=treebulider.treeX;
 		this.treeY=treebulider.treeY;
-		leafCenterX=treeX+(treeWidthBottom/2);
-		leafCenterY=treeY-treeHeight;
 		
-		System.out.println(leafCenterX+","+leafCenterY);
+		
+		
 		
 			
 	}
 	@Override
 	public void buildShape() {
 		
+		leafCenterX=treeX+(treeWidthBottom/2);
+		leafCenterY=treeY-treeHeight;
 		shapes.add(new Shoot(color,treeX,treeY,treeWidthTop,treeWidthBottom,treeHeight));
-		
 		//rigt side
 		shapes.add(new Leaf(color,leafCenterX+(treeWidthBottom*.2), leafCenterY-(treeWidthBottom*9),leafCenterX+(treeHeight*1.5), leafCenterY-treeWidthBottom*4.2,leafCenterX,leafCenterY));
 		shapes.add(new Leaf(color,leafCenterX+(treeWidthBottom*.4), leafCenterY-(treeWidthBottom*7),leafCenterX+(treeHeight*1.5), leafCenterY-treeWidthBottom*1.5,leafCenterX,leafCenterY));
@@ -62,17 +62,7 @@ public class GreenLandBigTree extends CompositeShape {
 	
 	
 	
-	@Override
-	public void draw(GraphicsContext  gc) {
-		
-		buildShape();
-		
-		for(IShape shape:shapes) {
-			
-			shape.draw(gc);
-		}
-		
-	}
+	
 	
 	public static class TreeBuilder{
 		

@@ -2,12 +2,12 @@ package abstractfactory;
 
 import generalclasses.Fauna;
 import generalclasses.Flora;
-import generalclasses.Huts;
+import generalclasses.Hut;
 
 public abstract class AbstractFactory {
 	
-	public abstract Flora getFlora(String type);
+	public abstract Flora getFlora();
 	public abstract Fauna getFauna();
-	public abstract Huts getHuts(String type);
+	public abstract Hut getHuts();
 
 }

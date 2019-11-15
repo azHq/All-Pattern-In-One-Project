@@ -27,6 +27,7 @@ public class Leaf extends BasicShape{
 		
 		
 		gc.fill();
+		gc.setFill(color);
 		gc.closePath();
 		gc.beginPath();
 		gc.moveTo(leafCenterX,leafCenterY);
@@ -34,8 +35,8 @@ public class Leaf extends BasicShape{
 		gc.stroke();
 		gc.setLineWidth(3);
 		gc.closePath();
-		gc.setFill(color);
-		gc.setFill(color);
+		
+		
 		gc.setStroke(Color.BLUE);
 		
 	}

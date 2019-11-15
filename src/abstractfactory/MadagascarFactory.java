@@ -3,10 +3,12 @@ package abstractfactory;
 
 import generalclasses.Fauna;
 import generalclasses.Flora;
-import generalclasses.Huts;
+import generalclasses.Hut;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
+import madagascarisland.MadagascarFauna;
 import madagascarisland.MadagascarFlora;
+import madagascarisland.MadagascarHut;
 
 public class MadagascarFactory extends AbstractFactory {
 	
@@ -18,7 +20,7 @@ public class MadagascarFactory extends AbstractFactory {
 	
 
 	@Override
-	public Flora getFlora(String type) {
+	public Flora getFlora() {
 		
 		
 		return new MadagascarFlora(gc);
@@ -27,12 +29,12 @@ public class MadagascarFactory extends AbstractFactory {
 	@Override
 	public Fauna getFauna() {
 		
-		return null;
+		return new MadagascarFauna(gc);
 	}
 
 	@Override
-	public Huts getHuts(String type) {
+	public Hut getHuts() {
 		
-		return null;
+		return new MadagascarHut(gc);
 	}
 }

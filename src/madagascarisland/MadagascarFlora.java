@@ -1,5 +1,6 @@
 package madagascarisland;
 
+import flyweight.FlyWeightFactory;
 import generalclasses.Flora;
 import greenlandisland.GreenLandBigTree;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,7 +21,14 @@ public class MadagascarFlora extends Flora{
 	
 	public  void createBigTree() {
 		
-		new MadagascarBigTree(Color.GREEN,400,400,200).draw(gc);
+		MadagascarBigTree shape=(MadagascarBigTree) FlyWeightFactory.getTree(Color.FORESTGREEN,2);
+		shape.draw(gc);
+		
+		shape=(MadagascarBigTree) FlyWeightFactory.getTree(Color.FORESTGREEN,2);
+		shape.treeX=360;
+		shape.treeY=430;
+		
+		shape.draw(gc);
 	}
 	public  void createGrass() {
 		

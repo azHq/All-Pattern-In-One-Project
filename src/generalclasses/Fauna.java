@@ -5,10 +5,11 @@ public abstract class Fauna {
 	public void createFauna() { 
 		
 		createBird();
-		createDeer();
+		createSnake();
+		
 	}
 	public abstract void createBird();
-	public abstract void createDeer();
+	public abstract void createSnake();
 	
 
 }
